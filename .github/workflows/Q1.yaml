@@ -24,6 +24,7 @@ jobs:
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email XtrayGaming@yahoo.fr
+        git pull --rebase origin main
         git add Q1_archive_README.md
         git commit -m "Add Q1_archive_README.md"
         git push
