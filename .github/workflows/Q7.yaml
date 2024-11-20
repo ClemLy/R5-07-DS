@@ -1,3 +1,6 @@
+name: Q7 Workflow
+run-name: ${{ github.actor }} teste Q7 🚀
+
 # Déclenchement du workflow sur les événements 'push'
 on: [push]
 
