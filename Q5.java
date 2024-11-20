@@ -17,7 +17,8 @@ public class Q5
                 // Issue : Inverser l'affichage du triangle
                 for (int i = n; i >= 1; i--)
                 {
-                    System.out.println("*".repeat(i));
+                    // Issue : Afficher des ‘x’ à la place des ‘*’
+                    System.out.println("x".repeat(i));
                 }
             }
 
