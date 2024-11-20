@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  Create-Q3-Archive:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
 
     steps:
