@@ -18,7 +18,7 @@ jobs:
     # Créer le fichier Q2_archive_README.md
     - name: Create Q2 archive file
       run: |
-        echo "Nom et prénom : John Doe" > Q2_archive_README.md
+        echo "Nom et prénom : Clémentin LY" > Q2_archive_README.md
         echo "Date et heure d'exécution : $(date '+%Y-%m-%d %H:%M:%S')" >> Q2_archive_README.md
         echo "" >> Q2_archive_README.md
         echo "Contenu de README.md :" >> Q2_archive_README.md
