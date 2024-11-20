@@ -42,7 +42,7 @@ jobs:
         previous_archive=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
         
         if [ -n "$previous_archive" ]; then
-          diff "$previous_archive" "$archive_name" > Q6_différences.txt
+          diff "$previous_archive" "$archive_name" > Q6_différences.txt || true
         else
           echo "Aucune archive précédente à comparer." > Q6_différences.txt
         fi
