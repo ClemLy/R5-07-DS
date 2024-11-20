@@ -1,0 +1,33 @@
+name: Q3 Workflow
+run-name: ${{ github.actor }} teste Q3 🚀
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  Create-Q3-Archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Vérifier le dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Créer le fichier Q3_archive_java.txt avec nom, prénom et contenu de Q3.java
+    - name: Create Q3 archive file
+      run: |
+        echo "Nom et prénom : John Doe" > Q3_archive_java.txt
+        echo "" >> Q3_archive_java.txt
+        echo "Contenu de Q3.java :" >> Q3_archive_java.txt
+        cat Q3.java >> Q3_archive_java.txt
+
+    # Push
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git add Q3_archive_java.txt
+        git commit -m "Add Q3_archive_java.txt"
+        git push
