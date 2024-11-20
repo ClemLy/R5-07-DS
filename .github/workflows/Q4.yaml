@@ -34,6 +34,7 @@ jobs:
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git pull --rebase origin main
         git add Q4_archive_*.txt
         git commit -m "Add Q4 archive file"
         git push
