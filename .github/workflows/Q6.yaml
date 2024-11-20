@@ -39,7 +39,7 @@ jobs:
     # Créer le fichier Q6_différences.txt pour comparer les archives
     - name: Compare with previous archive and create differences file
       run: |
-        previous_archive=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
+        previous_archive=$(ls Q6_archive_*.txt 2>/dev/null | tail -n 1)
         
         if [ -n "$previous_archive" ]; then
           diff "$previous_archive" "$archive_name" > Q6_différences.txt || true
