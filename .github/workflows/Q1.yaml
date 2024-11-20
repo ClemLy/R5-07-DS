@@ -24,9 +24,6 @@ jobs:
       run: |
         git config --global user.name "ClemLy"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-        git stash                         # Sauvegarder temporairement les modifications locales
-        git pull --rebase origin main     # Récupérer les changements distants
-        git stash pop                     # Réappliquer les modifications locales
-        git add Q4_archive_*.txt
-        git commit -m "Add Q4 archive file"
+        git add Q5_archive_*.txt
+        git commit -m "Add Q5 archive file"
         git push
