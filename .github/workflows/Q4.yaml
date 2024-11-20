@@ -1,0 +1,39 @@
+name: Q4 Workflow
+run-name: ${{ github.actor }} teste Q4 🚀
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Vérifier le dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Créer le fichier Q4_archive_date.txt
+    - name: Create Q4 archive file
+      run: |
+        date=$(date '+%d-%m-%Y')
+        archive_name="Q4_archive_${date}.txt"
+        echo "Nom et prénom : Clémentin LY" > $archive_name
+        echo "" >> $archive_name
+        echo "Contenu de Q4.java :" >> $archive_name
+        if [ -f Q4.java ]; then
+          cat Q4.java >> $archive_name
+        else
+          echo "Q4.java not found." >> $archive_name
+        fi
+
+    # Push
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "${{ github.actor }}"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git add Q4_archive_*.txt
+        git commit -m "Add Q4 archive file"
+        git push
