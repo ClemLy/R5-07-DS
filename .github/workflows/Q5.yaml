@@ -1,0 +1,42 @@
+name: Q5 Workflow
+run-name: ${{ github.actor }} teste Q5 🚀
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Vérifier le dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Créer le fichier Q5_archive_date.txt
+    - name: Create Q5 archive file
+      run: |
+        date=$(date '+%d-%m-%Y')
+        archive_name="Q5_archive_${date}.txt"
+        echo "Nom et prénom : Clémentin LY" > $archive_name
+        echo "" >> $archive_name
+        echo "Contenu de Q5.java :" >> $archive_name
+        if [ -f Q5.java ]; then
+          cat Q5.java >> $archive_name
+        else
+          echo "Q5.java not found." >> $archive_name
+        fi
+
+    # Push
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "ClemLy"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git stash                         # Sauvegarder temporairement les modifications locales
+        git pull --rebase origin main     # Récupérer les changements distants
+        git stash pop                     # Réappliquer les modifications locales
+        git add Q5_archive_*.txt
+        git commit -m "Add Q5 archive file"
+        git push
