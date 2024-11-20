@@ -35,7 +35,7 @@ jobs:
           cat Q6.java >> $ARCHIVE_FILE                                  # Contenu de Q6.java
           echo "" >> $ARCHIVE_FILE                                      # Ligne vide
           echo "Statistiques de Q6.java :" >> $ARCHIVE_FILE             # En-tête des stats
-          wc java/Q6.java >> $ARCHIVE_FILE                                   # Taille en caractères et en lignes
+          wc Q6.java >> $ARCHIVE_FILE                                   # Taille en caractères et en lignes
 
           # Comparaison avec le fichier précédent (si existant)
           if [ -f "$PREVIOUS_ARCHIVE_FILE" ]; then
