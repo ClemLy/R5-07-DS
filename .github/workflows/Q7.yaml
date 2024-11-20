@@ -1,0 +1,54 @@
+# Déclenchement du workflow sur les événements 'push'
+on: [push]
+
+# Définition des permissions nécessaires
+permissions:
+  contents: write
+
+jobs:
+  create-and-push-q7:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Étape 1 : Vérification du code source (action standard pour récupérer le dépôt)
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Étape 2 : Création du fichier Q6_archive_<date>.txt
+      - name: Création du fichier Q6_archive_<date>.txt
+        run: |
+          # Obtenir la date au format JJ-MM-AAAA-HHMMSS
+          DATE=$(date +'%d-%m-%Y-%H%M%S')
+
+          # Définir les noms des fichiers
+          ARCHIVE_FILE="Q6_archive_${DATE}.txt"
+          PREVIOUS_ARCHIVE_FILE=$(ls Q6_archive_*.txt 2>/dev/null | tail -n 1)
+          DIFF_FILE="Q6_différences.txt"
+
+          # Ajouter les informations dans le fichier Q6_archive_<date>.txt
+          echo "Thomas Boudeele" > $ARCHIVE_FILE                        # Nom et prénom
+          echo "" >> $ARCHIVE_FILE                                      # Ligne vide pour la lisibilité
+          echo "Contenu du fichier Q6.java :" >> $ARCHIVE_FILE          # En-tête
+          cat java/Q6.java >> $ARCHIVE_FILE                                  # Contenu de Q6.java
+          echo "" >> $ARCHIVE_FILE                                      # Ligne vide
+          echo "Statistiques de Q6.java :" >> $ARCHIVE_FILE             # En-tête des stats
+          wc java/Q6.java >> $ARCHIVE_FILE                                   # Taille en caractères et en lignes
+
+          # Comparaison avec le fichier précédent (si existant)
+          if [ -f "$PREVIOUS_ARCHIVE_FILE" ]; then
+            diff "$PREVIOUS_ARCHIVE_FILE" "$ARCHIVE_FILE" > $DIFF_FILE || true
+          else
+            echo "Aucune différence détectée (première version)." > $DIFF_FILE
+          fi
+      # Étape 3 : Configuration Git pour effectuer le commit
+      - name: Configuration de Git
+        run: |
+          git config --global user.name "timberlek78"
+          git config --global user.email "thomasboudeele1@gmail.com"
+
+      # Étape 4 : Commit et push des fichiers générés
+      - name: Commit et push
+        run: |
+          git add Q6_archive_*.txt Q6_différences.txt
+          git commit -m "Ajout des fichiers Q6_archive et Q6_différences"
+          git push
