@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  Create-Q2-Archive:
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
           echo "README.md not found." >> Q2_archive_README.md
         fi
 
-    # Configurer Git et pousser les modifications
+    # Push
     - name: Commit and push changes
       run: |
         git config --global user.name "${{ github.actor }}"
