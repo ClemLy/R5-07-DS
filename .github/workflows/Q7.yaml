@@ -32,7 +32,7 @@ jobs:
           echo "Thomas Boudeele" > $ARCHIVE_FILE                        # Nom et prénom
           echo "" >> $ARCHIVE_FILE                                      # Ligne vide pour la lisibilité
           echo "Contenu du fichier Q6.java :" >> $ARCHIVE_FILE          # En-tête
-          cat java/Q6.java >> $ARCHIVE_FILE                                  # Contenu de Q6.java
+          cat Q6.java >> $ARCHIVE_FILE                                  # Contenu de Q6.java
           echo "" >> $ARCHIVE_FILE                                      # Ligne vide
           echo "Statistiques de Q6.java :" >> $ARCHIVE_FILE             # En-tête des stats
           wc java/Q6.java >> $ARCHIVE_FILE                                   # Taille en caractères et en lignes
