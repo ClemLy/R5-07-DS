@@ -28,6 +28,7 @@ jobs:
       run: |
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git pull --rebase origin main
         git add Q3_archive_java.txt
         git commit -m "Add Q3_archive_java.txt"
         git push
