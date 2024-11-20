@@ -1,4 +1,4 @@
-Nom et prénom : John Doe
+Nom et prénom : Clémentin LY
 
 Contenu de Q3.java :
 public class Q3
