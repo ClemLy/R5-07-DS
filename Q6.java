@@ -32,5 +32,7 @@ public class Q6
         {
             System.out.println("Le paramètre fourni doit être un entier.");
         }
+
+        System.out.println("Test");
     }
 }
