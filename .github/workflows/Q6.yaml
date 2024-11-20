@@ -1,0 +1,57 @@
+name: Q6 Workflow
+run-name: ${{ github.actor }} teste Q6 🚀
+
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  Create-Q6-Archive:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Vérifier le dépôt
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Créer le fichier Q6_archive_date.txt
+    - name: Create Q6 archive file
+      run: |
+        date=$(date '+%d-%m-%Y-%H%M%S')
+        archive_name="Q6_archive_${date}.txt"
+        
+        echo "Nom et prénom : Clémentin LY" > $archive_name
+        echo "" >> $archive_name
+        echo "Contenu de Q6.java :" >> $archive_name
+        
+        if [ -f Q6.java ]; then
+          cat Q6.java >> $archive_name
+        else
+          echo "Q6.java not found." >> $archive_name
+        fi
+        
+        echo "" >> $archive_name
+        echo "Taille du fichier Q6.java :" >> $archive_name
+        wc -l Q6.java >> $archive_name
+        wc -c Q6.java >> $archive_name 
+
+    # Créer le fichier Q6_différences.txt pour comparer les archives
+    - name: Compare with previous archive and create differences file
+      run: |
+        previous_archive=$(ls Q6_archive_*.txt | sort | tail -n 2 | head -n 1)
+        
+        if [ -n "$previous_archive" ]; then
+          diff "$previous_archive" "$archive_name" > Q6_différences.txt
+        else
+          echo "Aucune archive précédente à comparer." > Q6_différences.txt
+        fi
+
+    # Push
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "ClemLy"
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git add Q6_archive_*.txt Q6_différences.txt
+        git commit -m "Add Q6 archive and differences files"
+        git push
