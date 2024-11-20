@@ -7,7 +7,7 @@ permissions:
   contents: write
 
 jobs:
-  Explore-GitHub-Actions:
+  Create-Q5-Archive:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,9 +20,11 @@ jobs:
       run: |
         date=$(date '+%d-%m-%Y')
         archive_name="Q5_archive_${date}.txt"
+        
         echo "Nom et prénom : Clémentin LY" > $archive_name
         echo "" >> $archive_name
         echo "Contenu de Q5.java :" >> $archive_name
+        
         if [ -f Q5.java ]; then
           cat Q5.java >> $archive_name
         else
@@ -34,9 +36,6 @@ jobs:
       run: |
         git config --global user.name "ClemLy"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
-        git stash                         # Sauvegarder temporairement les modifications locales
-        git pull --rebase origin main     # Récupérer les changements distants
-        git stash pop                     # Réappliquer les modifications locales
         git add Q5_archive_*.txt
         git commit -m "Add Q5 archive file"
         git push
